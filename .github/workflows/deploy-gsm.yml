@@ -46,5 +46,6 @@ jobs:
             --region $REGION \
             --platform managed \
             --port=3000 \
+            --service-account=${{ secrets.CLOUD_RUN_SERVICE_ACCOUNT }} \
             --set-secrets DB_PASSWORD=db-password:latest \
             --set-secrets STRIPE_KEY=stripe-key:latest
