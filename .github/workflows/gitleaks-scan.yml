@@ -1,4 +1,4 @@
-name: Semgrep Scan (bad-server)
+name: Gitleaks Scan (bad-server)
 
 on:
   workflow_dispatch:
