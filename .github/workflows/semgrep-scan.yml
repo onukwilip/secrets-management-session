@@ -1,0 +1,16 @@
+name: Semgrep Scan (bad-server)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  semgrep-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Scan bad-server for secrets and issues
+        run: |
+          docker run --rm -v "${{ github.workspace }}:/src" semgrep/semgrep \
+            semgrep scan --config auto --error /src/bad-server

@@ -39,6 +39,7 @@ secrets-demo/
 ## Steps to use Secrets Manager with Google Cloud Run
 
 - Enable Secrets Manager API
+- Enable Compute Engine API
 - Create the Secrets in Google Secret Manager
 - Create a Separate Service Account for the Cloud Run Service
 - Grant Secret Accessor Permission on the secrets to the Cloud Run Service Account (in production, you create a special Service Account for the Cloud Run Service, instead of using the default SA...instead of granting the general default SA access to the secrets)
