@@ -45,5 +45,6 @@ jobs:
             --image ${{ steps.image.outputs.tag }} \
             --region $REGION \
             --platform managed \
+            --port=3000 \
             --set-secrets DB_PASSWORD=db-password:latest \
             --set-secrets STRIPE_KEY=stripe-key:latest
