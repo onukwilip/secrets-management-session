@@ -29,16 +29,20 @@ jobs:
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
 
+      - name: Set image tag
+        id: image
+        run: echo "tag=${REGION}-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$IMAGE:${{ github.sha }}" >> "$GITHUB_OUTPUT"
+
       - name: Build and push image
         run: |
-          gcloud auth configure-docker
-          docker build -t gcr.io/$PROJECT_ID/$IMAGE:${{ github.sha }} ./good-docker
-          docker push gcr.io/${REGION}-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$IMAGE:${{ github.sha }}
+          gcloud auth configure-docker ${REGION}-docker.pkg.dev
+          docker build -t ${{ steps.image.outputs.tag }} ./good-docker
+          docker push ${{ steps.image.outputs.tag }}
 
       - name: Deploy to Cloud Run
         run: |
           gcloud run deploy secrets-demo-gsm \
-            --image gcr.io/$PROJECT_ID/$IMAGE:${{ github.sha }} \
+            --image ${{ steps.image.outputs.tag }} \
             --region $REGION \
             --platform managed \
             --set-secrets DB_PASSWORD=db-password:latest \
