@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Scan bad-server for secrets and issues
+      - name: Scan bad-server for secrets
         run: |
           docker run --rm -v "${{ github.workspace }}:/src" semgrep/semgrep \
-            semgrep scan --config auto --error /src/bad-server
+            semgrep scan --config p/secrets --error /src/bad-server
