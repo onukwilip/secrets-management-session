@@ -6,6 +6,7 @@ on:
 env:
   PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
   REGION: ${{ vars.GCP_REGION }}
+  REPO_NAME: ${{ vars.REPO_NAME }}
   IMAGE: secrets-demo-gsm
 
 jobs:
