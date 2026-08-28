@@ -11,6 +11,13 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Scan bad-server for secrets
-        run: |
-          docker run --rm -v "${{ github.workspace }}:/src" semgrep/semgrep \
-            semgrep scan --config p/secrets --error /src/bad-server
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          args: detect --source /src/bad-server --no-git --verbose
+
+      # - name: Scan bad-server for secrets
+      #   run: |
+      #     docker run --rm -v "${{ github.workspace }}:/src" semgrep/semgrep \
+      #       semgrep scan --config /src/.semgrep/hardcoded-secrets.yml --error /src/bad-server
